@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .managers import UserManager
+from django.utils import timezone
 
 
 class User(AbstractBaseUser):
@@ -27,3 +28,23 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+class Otp(models.Model):
+    phone_number = models.CharField(max_length=11)
+    code = models.IntegerField()
+    created_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_time']
+
+    def __str__(self):
+        return f'{self.phone_number} - {self.code} - {self.created_time}'
+
+    @property
+    def is_expired(self):
+        return timezone.now() > (self.created_time + timezone.timedelta(minutes=1))
+
+
+
+
