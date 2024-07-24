@@ -31,7 +31,7 @@ class User(AbstractBaseUser):
 
 
 class Otp(models.Model):
-    phone_number = models.CharField(max_length=11)
+    phone_number = models.CharField(max_length=11, unique=True)
     code = models.IntegerField()
     created_time = models.DateTimeField(auto_now=True)
 
@@ -44,7 +44,3 @@ class Otp(models.Model):
     @property
     def is_expired(self):
         return timezone.now() > (self.created_time + timezone.timedelta(minutes=1))
-
-
-
-

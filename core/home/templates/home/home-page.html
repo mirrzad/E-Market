@@ -1,9 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Home Page{% endblock %}
+{% block extra_headers %}
+    <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+{% endblock %}
+
 
 {% block content %}
 
-    <h3>Home Page!</h3>
+    <h3>Products List</h3>
+    <hr>
+    {% for product in products %}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{product.image.url}}"><br>
+        <div class="card-body">
+            <h5 class="card-title">{{product.title}}</h5>
+            <p class="card-text">{{product.price}}$</p>
+            <a href="{{product.get_absolute_url}}" class="btn btn-primary">Details</a>
+        </div>
+    </div>
+    {% endfor%}
+
 
 {% endblock %}
