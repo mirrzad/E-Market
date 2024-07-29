@@ -8,6 +8,7 @@
           <a class="nav-link active" aria-current="page" href="{% url 'account:user-register' %}">Register</a>
           <a class="nav-link active" aria-current="page" href="{% url 'account:user-login' %}">Login</a>
           {% endif %}
+          <a class="nav-link active" aria-current="page" href="{% url 'order:cart-page' %}">Cart({{ cart | length }})</a>
       </div>
   </div>
 </nav>

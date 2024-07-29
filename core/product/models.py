@@ -6,6 +6,8 @@ from django.utils.text import slugify
 class Category(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
+    parent = models.ForeignKey('self', models.CASCADE, related_name='sub_categories', null=True, blank=True)
+    is_sub = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('title',)
@@ -14,9 +16,12 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('home:category-filter', args=[self.slug],)
+
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    category = models.ManyToManyField(Category, related_name='products')
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     image = models.ImageField(upload_to='images/products', null=True, blank=True)

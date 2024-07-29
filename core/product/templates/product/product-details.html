@@ -12,7 +12,12 @@
         <h4>{{product.title}}</h4>
         <p>price: {{product.price}}$</p><br>
         <p class="card-text">{{product.description}}</p>
-        <a href="" class="btn btn-primary">Buy</a>
+<br> <br>
+        <form action="{% url 'order:add-cart' product.id %}" method="post" class="col-md-4">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="btn btn-primary" type="submit" value="Add to Cart">
+        </form>
 
 
 {% endblock %}
