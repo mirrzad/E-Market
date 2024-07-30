@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 
     'django_celery_beat',
     'django_extensions',
+    'ckeditor',
+    'ckeditor_uploader',
 
 ]
 
@@ -89,6 +91,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# Cache
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+    }
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 
 # Password validation
@@ -141,3 +154,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
 
 CELERY_BROKER_URL = "redis://localhost:6379/0"
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+    },
+}
+
+CKEDITOR_UPLOAD_PATH = "ck/uploads/"

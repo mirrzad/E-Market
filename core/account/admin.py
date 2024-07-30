@@ -10,16 +10,16 @@ class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
 
     list_display = ('email', 'full_name')
-    list_filter = ('is_admin',)
+    list_filter = ('is_superuser',)
     search_fields = ('email', 'full_name')
 
     ordering = ('full_name',)
 
     fieldsets = ((None, {'fields': ('phone_number', 'email', 'full_name', 'password')}),
-                 ('Permissions', {'fields': ('is_active', 'is_admin')})
+                 ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')})
                  )
     add_fieldsets = ((None, {'fields': ('phone_number', 'email', 'full_name', 'password1', 'password2')}),
-                     ('Permissions', {'fields': ('is_active', 'is_admin')})
+                     ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')})
                      )
 
     filter_horizontal = ()

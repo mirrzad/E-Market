@@ -11,7 +11,7 @@
         <small>updated_on {{product.updated_time | date:"d-m-Y"}}</small>
         <h4>{{product.title}}</h4>
         <p>price: {{product.price}}$</p><br>
-        <p class="card-text">{{product.description}}</p>
+        <p class="card-text">{{product.description | safe}}</p>
 <br> <br>
         <form action="{% url 'order:add-cart' product.id %}" method="post" class="col-md-4">
                 {% csrf_token %}
