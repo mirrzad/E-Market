@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from product.models import Product
+from product.models import ProductVariant
 from .models import OrderItem, Order, Coupon
 from .cart import Cart
 from .forms import CartAddForm, CouponApplyForm
@@ -20,14 +20,14 @@ class CartView(View):
 class AddCartView(View):
     form_class = CartAddForm
 
-    def post(self, request, product_id):
+    def post(self, request, variant_id):
         cart = Cart(request)
-        product = get_object_or_404(Product, id=product_id)
+        variant = get_object_or_404(ProductVariant, id=variant_id)
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            cart.add(product, cd['quantity'])
-        return redirect(product.get_absolute_url())
+            cart.add(variant, cd['quantity'])
+        return redirect(variant.product.get_absolute_url())
 
 
 class RemoveCartView(View):
@@ -59,6 +59,14 @@ class OrderDetailsView(LoginRequiredMixin, View):
     def get(self, request, order_id):
         order = get_object_or_404(Order, id=order_id)
         return render(request, self.template_name, {'order': order, 'form': self.form_class})
+
+
+class OrderListView(LoginRequiredMixin, View):
+    template_name = 'order/order-list.html'
+
+    def get(self, request):
+        orders = Order.objects.filter(user=request.user).order_by('-id')
+        return render(request, self.template_name, {'orders': orders})
 
 
 class CouponApplyView(LoginRequiredMixin, View):

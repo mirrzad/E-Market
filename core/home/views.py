@@ -11,5 +11,6 @@ class HomeView(View):
         categories = Category.objects.filter(is_sub=False)
         if category_slug:
             category = Category.objects.filter(slug=category_slug).first()
-            products = products.filter(category=category)
+            products = products.filter(category__parent=category)
+
         return render(request, self.template_name, {'products': products, 'categories': categories})

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Order List{% endblock %}
+
+{% block content %}
+<table class="table table-success table-striped">
+  <thead>
+    <tr>
+      <th scope="col">R</th>
+      <th scope="col">Order_ID</th>
+      <th scope="col">Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Discount</th>
+      <th scope="col">Total Payment</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{order.id}}</td>
+      <td>{{order.updated_time}}</td>
+      <td>{% if order.is_paid %} paid {% else %} not_paid {% endif %}</td>
+      <td>{{order.discount}}</td>
+      <td>{{order.total_payment}}$</td>
+
+    </tr>
+    {% endfor%}
+
+  </tbody>
+</table>
+
+{% endblock %}

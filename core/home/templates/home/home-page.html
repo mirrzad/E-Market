@@ -16,7 +16,7 @@
 </div>
     {% for cat in categories %}
         <div class="btn-group">
-            <a href="{{ cat.get_absolute_url }}"  class="btn btn-info">{{cat.title}}</a>
+            <a class="btn btn-info">{{cat.title}}</a>
             <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="visually-hidden">Toggle Dropdown</span>
             </button>
@@ -36,11 +36,10 @@
         <img class="card-img-top" src="{{product.image.url}}" style="width: 200px; height: 200px;" ><br>
         <div class="card-body">
             <h5 class="card-title">{{product.title}}</h5>
-            <p class="card-text">{{product.price}}$</p>
+            <p class="card-text">{{product.description}}</p>
             <a href="{{product.get_absolute_url}}" class="btn btn-primary">Details</a>
         </div>
     </div>
     {% endfor%}
-
 
 {% endblock %}

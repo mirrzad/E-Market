@@ -4,7 +4,6 @@ from .models import Order, OrderItem, Coupon
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
-    raw_id_fields = ('product',)
 
 
 class OrderAdmin(admin.ModelAdmin):

@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
 from .forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User, Otp
@@ -16,13 +15,11 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('full_name',)
 
     fieldsets = ((None, {'fields': ('phone_number', 'email', 'full_name', 'password')}),
-                 ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')})
+                 ('Permissions', {'fields': ('is_active', 'is_superuser', 'groups', 'user_permissions')})
                  )
     add_fieldsets = ((None, {'fields': ('phone_number', 'email', 'full_name', 'password1', 'password2')}),
-                     ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')})
+                     ('Permissions', {'fields': ('is_active', 'is_superuser',  'groups', 'user_permissions')})
                      )
-
-    filter_horizontal = ()
 
 
 class OtpAdmin(admin.ModelAdmin):
@@ -30,6 +27,5 @@ class OtpAdmin(admin.ModelAdmin):
     list_filter = ('phone_number',)
 
 
-admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
 admin.site.register(Otp, OtpAdmin)

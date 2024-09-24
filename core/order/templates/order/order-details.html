@@ -4,7 +4,7 @@
 {% block content %}
 
 <h3>Checkout</h3>
-
+<hr>
 <p>Total Payment: {{ order.total_payment }}$</p>
 
         <form action="{% url 'order:apply-coupon' order.id %}" method="post" class="col-md-4">
@@ -12,5 +12,8 @@
                 {{ form.as_p }}
                 <input class="btn btn-primary" type="submit" value="Apply">
         </form>
+<hr>
+        <input class="btn btn-primary"  value="Pay">
+
 
 {% endblock %}

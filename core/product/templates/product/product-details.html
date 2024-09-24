@@ -7,17 +7,26 @@
 {% endblock %}
 
 {% block content %}
-        <img src="{{product.image.url}}">
-        <small>updated_on {{product.updated_time | date:"d-m-Y"}}</small>
-        <h4>{{product.title}}</h4>
-        <p>price: {{product.price}}$</p><br>
-        <p class="card-text">{{product.description | safe}}</p>
-<br> <br>
-        <form action="{% url 'order:add-cart' product.id %}" method="post" class="col-md-4">
+        {% for variant in variants %}
+        <img src="{{variant.product.image.url}}">
+        <h4>{{variant.product.title}}</h4>
+        <small>updated_on {{variant.product.updated_time | date:"d-m-Y"}}</small>
+        <br>
+        <p class="card-text">{{variant.product.description | safe}}</p>
+                <p>color: {{ variant.attributes.color }}</p>
+                <p>weight: {{ variant.attributes.weight }}</p>
+                <p>price: {{ variant.price }}</p>
+                <p>available_numbers: {{ variant.item_count }}</p>
+
+
+        <br>
+        <form action="{% url 'order:add-cart' variant.id %}" method="post" class="col-md-4">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input class="btn btn-primary" type="submit" value="Add to Cart">
         </form>
-
+        <br>
+        <hr>
+        {% endfor %}
 
 {% endblock %}

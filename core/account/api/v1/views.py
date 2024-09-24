@@ -64,6 +64,5 @@ class UserViewSet(viewsets.ViewSet):
         user = get_object_or_404(self.queryset, pk=pk)
         if user != request.user:
             return Response({'permission denied': 'You are not the owner'}, status=status.HTTP_403_FORBIDDEN)
-        user.is_active = False
-        user.save()
+        user.delete()
         return Response({'detail': 'User deleted'}, status=status.HTTP_204_NO_CONTENT)
