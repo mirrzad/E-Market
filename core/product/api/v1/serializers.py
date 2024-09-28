@@ -35,7 +35,14 @@ class ProductVariantSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CategoryIdTitleRelationalField(serializers.RelatedField):
+    def to_representation(self, value):
+        return f'id: {value.id} | title: {value.title}'
+
+
 class CategorySerializer(serializers.ModelSerializer):
+    sub_categories = CategoryIdTitleRelationalField(read_only=True, many=True)
+
     class Meta:
         model = Category
         fields = '__all__'

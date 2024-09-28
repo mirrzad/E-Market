@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 class Category(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-    parent = models.ForeignKey('self', models.CASCADE, related_name='sub_categories', null=True, blank=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_categories', null=True, blank=True)
     is_sub = models.BooleanField(default=False)
     product_attrs_schema = models.JSONField(default=dict, blank=True)
     variant_attrs_schema = models.JSONField(default=dict, blank=True)
