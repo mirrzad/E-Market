@@ -67,7 +67,6 @@ class Product(models.Model):
 class ProductVariant(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variants')
     price = models.IntegerField(null=True, blank=True)
-    item_count = models.IntegerField(null=True, blank=True)
     attributes = models.JSONField(default=dict, blank=True)
 
     def __str__(self):

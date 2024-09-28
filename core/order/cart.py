@@ -28,8 +28,14 @@ class Cart:
     def add(self, variant, quantity):
         product_id = str(variant.id)
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0, 'price': str(variant.price)}
+            self.cart[product_id] = {
+                'quantity': 0,
+                'price': str(variant.price),
+                'name': variant.product.title,
+                'attributes': variant.attributes,
+            }
         self.cart[product_id]['quantity'] += quantity
+        self.cart[product_id]['total'] = str(variant.price * self.cart[product_id]['quantity'])
         self.save()
 
     def remove(self, product_id):

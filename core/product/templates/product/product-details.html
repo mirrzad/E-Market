@@ -16,11 +16,9 @@
                 <p>color: {{ variant.attributes.color }}</p>
                 <p>weight: {{ variant.attributes.weight }}</p>
                 <p>price: {{ variant.price }}</p>
-                <p>available_numbers: {{ variant.item_count }}</p>
-
 
         <br>
-        <form action="{% url 'order:add-cart' variant.id %}" method="post" class="col-md-4">
+        <form action="{% url 'order:add-cart' variant.id %}" method="post" class="col-md-1">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input class="btn btn-primary" type="submit" value="Add to Cart">

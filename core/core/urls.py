@@ -31,6 +31,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api-v1/product/', include('product.api.v1.urls', namespace='product_api')),
     path('api-v1/account/', include('account.api.v1.urls', namespace='account_api')),
+    path('api-v1/order/', include('order.api.v1.urls', namespace='order_api')),
 
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
